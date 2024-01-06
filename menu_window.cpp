@@ -13,7 +13,7 @@ class Menu
 		int height,width,starty,startx;
 		height = 20;
 		width = 41;
-		starty=startx=5;
+		get_middle(stdscr,starty,startx,height,width);
 		WINDOW *win =newwin(height,width,starty,startx);
 		refresh();
 		box(win,0,0);
@@ -36,4 +36,12 @@ class Menu
 		wrefresh(win);
 		
 	}
+	void get_middle(WINDOW *win, int &y, int &x,int h, int w)
+		{
+			getmaxyx(win,y,x);
+			y/=2;
+			x/=2;
+			x-=(w/2);
+			y-=(h/2);
+		}
 };
