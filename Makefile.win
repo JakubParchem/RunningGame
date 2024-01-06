@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Player.o drawable.o game_window.o menu_window.o
-LINKOBJ  = main.o Player.o drawable.o game_window.o menu_window.o
+OBJ      = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
+LINKOBJ  = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
 LIBS     = -L"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib" -L"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc -lncursesw
 INCS     = -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
@@ -38,3 +38,6 @@ game_window.o: game_window.cpp
 
 menu_window.o: menu_window.cpp
 	$(CPP) -c menu_window.cpp -o menu_window.o $(CXXFLAGS)
+
+Cacti.o: Cacti.cpp
+	$(CPP) -c Cacti.cpp -o Cacti.o $(CXXFLAGS)

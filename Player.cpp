@@ -1,5 +1,6 @@
 #include "drawable.cpp"
 #pragma once
+//curiosity
 class Player
 {
 	Drawable character;
