@@ -1,6 +1,6 @@
 #include "drawable.cpp"
 #pragma once
-class Cactus
+class Cactus: public Drawable
 {
 	
 };

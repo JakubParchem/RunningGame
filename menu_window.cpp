@@ -4,26 +4,30 @@
 class Menu
 {
 	bool first_time=true;
-	
+	int height,width,starty,startx;
+	WINDOW *win;
 	public:
 	void start()
 	{
 		initscr();
 		noecho();
-		int height,width,starty,startx;
 		height = 20;
 		width = 41;
 		get_middle(stdscr,starty,startx,height,width);
-		WINDOW *win =newwin(height,width,starty,startx);
+		win =newwin(height,width,starty,startx);
 		refresh();
 		box(win,0,0);
 		wrefresh(win);
-		draw_title(win);
+		draw_title();
 		getch();
 		clear();
 		endwin();
+	}
+	void main_loop()
+	{
+		
 	}	
-	void draw_title(WINDOW *win)
+	void draw_title()
 	{
 		mvwprintw(win,1,1,"    __                            ___");
 		mvwprintw(win,2,1,"   |__) |  | |\\  | |\\  | | |\\  | /   \\");

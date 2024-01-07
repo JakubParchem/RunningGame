@@ -4,30 +4,42 @@
 class Game
 {
 	Player player;
-	
+	int height,width,starty,startx;
+	WINDOW *win;
 	public:
 		void start()
 		{
 			initscr();
 			noecho();
-			int height,width,starty,startx;
+			
 			height = 15;
 			width = 70;
 			get_middle(stdscr,starty,startx,height,width);
-			WINDOW *win =newwin(height,width,starty,startx);
+			win =newwin(height,width,starty,startx);
 			refresh();
 			box(win,0,0);
 			wrefresh(win);
-			draw_ground(win);
-			player.draw(win);
-			getch();
+			draw_ground();
+			player.prin(win);
+			int i;
+			player.jump_activate();
+			while(i!='q')
+			{
+			i=getch();
+			if(i=='w')
+			{
+				player.jump_activate();
+			}
+			player.jump(win);
+			}
+		
 			clear();
 			endwin();
 		}
-		void draw_ground(WINDOW *win)
+		void draw_ground()
 		{
 			wmove(win,12,1);
-			for(int i=1;i<69;i++)
+			for(int i=1;i<width-1;i++)
 			{
 				wprintw(win,"_");
 			}
