@@ -4,11 +4,11 @@
 class Drawable
 {
 	protected:
-		int posx=0;
-		int posy=0;
 		int height;
 		std::string sprite;
 	public:
+		int posx=0;
+		int posy=0;
 		void setpos(int y,int x)
 		{
 			posx=x;

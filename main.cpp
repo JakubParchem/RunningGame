@@ -2,7 +2,7 @@
 #include<iostream>
 #include"game_window.cpp"
 #include"menu_window.cpp"
-int main()
+int main()//
 {
 	Menu menu;
 	Game game;

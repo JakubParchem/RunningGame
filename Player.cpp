@@ -42,7 +42,7 @@ class Player:public Drawable
 					move_down(win,1);
 					height--;
 				};
-				if(height == 5 and up)
+				if(height == 6 and up)
 				{
 					up=false;
 				};

@@ -1,8 +1,10 @@
 #include<ncursesw/ncurses.h>
 #include "Player.cpp"
+#include "Cacti.cpp"
 class Game
 {
 	Player player;
+	Cactus cactus;
 	int height,width,starty,startx;
 	WINDOW *win;
 	public:
@@ -11,9 +13,11 @@ class Game
 		void start()
 		{
 			score=0;
+			cactus.setpos(10,66);
 			window_setup();
 			int i=0;
-			while(i!='q')
+			bool lost=false;
+			while(!lost)
 			{
 				i=getch();
 				if(i=='w' or i==' ' or i==KEY_UP)
@@ -21,6 +25,11 @@ class Game
 					player.jump_activate();
 				}
 				player.jump(win);
+				cactus.cmove(win);
+				if(player.posx==cactus.posx and player.posy>=7)
+				{
+					lost=true;
+				}
 				print_score();
 				score++;
 			}
@@ -74,6 +83,7 @@ class Game
 			wrefresh(win);
 			draw_ground();
 			player.prin(win);
+			cactus.prin(win);
 		}
 	
 };
