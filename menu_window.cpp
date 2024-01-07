@@ -8,7 +8,7 @@ class Menu
 	int height,width,starty,startx;
 	WINDOW *win;
 	public:
-	void start()
+	void start(int highscore,int score)
 	{
 		initscr();
 		curs_set(0);
@@ -23,6 +23,10 @@ class Menu
 		box(win,0,0);
 		wrefresh(win);
 		draw_title();
+		if(!first_time)
+		{
+			print_score(highscore, score);
+		}
 		select();
 		clear();
 		delwin(win);
@@ -111,9 +115,9 @@ class Menu
 		}
 		else
 		{
-			arrow.setpos(12,26);
-			mvwprintw(win,12,15,"PLAY AGAIN");
-			mvwprintw(win,15,18,"QUIT");
+			arrow.setpos(14,26);
+			mvwprintw(win,14,15,"PLAY AGAIN");
+			mvwprintw(win,17,18,"QUIT");
 			wrefresh(win);
 			bool a=true;
 			while(a)
@@ -159,4 +163,9 @@ class Menu
 		}	
 		first_time=false;
 	}
+	void print_score(int highscore,int score)
+		{
+			mvwprintw(win,12,5,"Highscore: %i  Last Score: %i",highscore,(score/4));
+			wrefresh(win);
+		}
 };

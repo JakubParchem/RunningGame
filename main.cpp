@@ -6,10 +6,9 @@ int main()
 {
 	Menu menu;
 	Game game;
-	char a;
 	while(true)
 	{
-		menu.start();
+		menu.start(game.highscore,game.score);
 		if(menu.is_quiting())
 		{
 			return 0;

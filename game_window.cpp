@@ -4,17 +4,18 @@ class Game
 {
 	Player player;
 	int height,width,starty,startx;
-	int score=0;
-	int highscore=0;
 	WINDOW *win;
 	public:
+		int score=0;
+		int highscore=0;
 		void start()
 		{
+			score=0;
 			initscr();
 			keypad(stdscr, TRUE);
 			noecho();
 			curs_set(0);
-			timeout(32);
+			timeout(28);
 			height = 15;
 			width = 70;
 			get_middle(stdscr,starty,startx,height,width);
@@ -60,15 +61,14 @@ class Game
 		}
 		void high_score()
 		{
-			if(highscore<score/2)
+			if(highscore<score/4)
 			{
-				highscore=score/2;
+				highscore=score/4;
 			}
-			score=0;
 		}
 		void print_score()
 		{
-			mvwprintw(win,1,39,"Highscore: %i  Score: %i",highscore,(score/2));
+			mvwprintw(win,1,39,"Highscore: %i  Score: %i",highscore,(score/4));
 			wrefresh(win);
 		}
 	
