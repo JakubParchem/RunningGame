@@ -24,20 +24,21 @@ class Game
 			wrefresh(win);
 			draw_ground();
 			player.prin(win);
-			int i;
+			int i=0;
 			while(i!='q')
 			{
-			i=getch();
-			if(i=='w' or i==' ' or i==KEY_UP)
-			{
-				player.jump_activate();
-			}
-			player.jump(win);
-			print_score();
-			score++;
+				i=getch();
+				if(i=='w' or i==' ' or i==KEY_UP)
+				{
+					player.jump_activate();
+				}
+				player.jump(win);
+				print_score();
+				score++;
 			}
 			high_score();
 			clear();
+			delwin(win);
 			endwin();
 		}
 		void draw_ground()

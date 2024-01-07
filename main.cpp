@@ -6,6 +6,7 @@ int main()
 {
 	Menu menu;
 	Game game;
+	char a;
 	while(true)
 	{
 		menu.start();

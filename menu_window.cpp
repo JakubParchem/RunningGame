@@ -25,6 +25,7 @@ class Menu
 		draw_title();
 		select();
 		clear();
+		delwin(win);
 		endwin();
 	}
 	bool is_quiting()
