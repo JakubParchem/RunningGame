@@ -11,20 +11,7 @@ class Game
 		void start()
 		{
 			score=0;
-			initscr();
-			keypad(stdscr, TRUE);
-			noecho();
-			curs_set(0);
-			timeout(28);
-			height = 15;
-			width = 70;
-			get_middle(stdscr,starty,startx,height,width);
-			win =newwin(height,width,starty,startx);
-			refresh();
-			box(win,0,0);
-			wrefresh(win);
-			draw_ground();
-			player.prin(win);
+			window_setup();
 			int i=0;
 			while(i!='q')
 			{
@@ -70,6 +57,23 @@ class Game
 		{
 			mvwprintw(win,1,39,"Highscore: %i  Score: %i",highscore,(score/4));
 			wrefresh(win);
+		}
+		void window_setup()
+		{
+			initscr();
+			keypad(stdscr, TRUE);
+			curs_set(0);
+			noecho();
+			timeout(28);
+			height = 15;
+			width = 70;
+			get_middle(stdscr,starty,startx,height,width);
+			win =newwin(height,width,starty,startx);
+			refresh();
+			box(win,0,0);
+			wrefresh(win);
+			draw_ground();
+			player.prin(win);
 		}
 	
 };

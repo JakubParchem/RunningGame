@@ -10,19 +10,7 @@ class Menu
 	public:
 	void start(int highscore,int score)
 	{
-		initscr();
-		curs_set(0);
-		keypad(stdscr, TRUE);
-		timeout(1000000000);
-		noecho();
-		height = 20;
-		width = 41;
-		get_middle(stdscr,starty,startx,height,width);
-		win =newwin(height,width,starty,startx);
-		refresh();
-		box(win,0,0);
-		wrefresh(win);
-		draw_title();
+		window_setup();
 		if(!first_time)
 		{
 			print_score(highscore, score);
@@ -164,8 +152,24 @@ class Menu
 		first_time=false;
 	}
 	void print_score(int highscore,int score)
-		{
-			mvwprintw(win,12,5,"Highscore: %i  Last Score: %i",highscore,(score/4));
-			wrefresh(win);
-		}
+	{
+		mvwprintw(win,12,5,"Highscore: %i  Last Score: %i",highscore,(score/4));
+		wrefresh(win);
+	}
+	void window_setup()
+	{
+		initscr();
+		curs_set(0);
+		keypad(stdscr, TRUE);
+		timeout(1000000000);
+		noecho();
+		height = 20;
+		width = 41;
+		get_middle(stdscr,starty,startx,height,width);
+		win =newwin(height,width,starty,startx);
+		refresh();
+		box(win,0,0);
+		wrefresh(win);
+		draw_title();
+	}
 };
