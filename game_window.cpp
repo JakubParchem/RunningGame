@@ -5,6 +5,7 @@ class Game
 {
 	Player player;
 	int height,width,starty,startx;
+	int score=0;
 	WINDOW *win;
 	public:
 		void start()
@@ -22,7 +23,8 @@ class Game
 			draw_ground();
 			player.prin(win);
 			int i;
-			player.jump_activate();
+			timeout(32);
+			curs_set(0); 
 			while(i!='q')
 			{
 			i=getch();
@@ -31,6 +33,8 @@ class Game
 				player.jump_activate();
 			}
 			player.jump(win);
+			print_score();
+			score++;
 			}
 		
 			clear();
@@ -52,6 +56,11 @@ class Game
 			x/=2;
 			x-=(w/2);
 			y-=(h/2);
+		}
+		void print_score()
+		{
+			mvwprintw(win,1,55,"Score: %i",(score/2));
+			wrefresh(win);
 		}
 	
 };
