@@ -6,7 +6,14 @@ int main()
 {
 	Menu menu;
 	Game game;
-	menu.start();
-	game.start();
+	while(true)
+	{
+		menu.start();
+		if(menu.is_quiting())
+		{
+			return 0;
+		}
+		game.start();
+	}
 	
 }

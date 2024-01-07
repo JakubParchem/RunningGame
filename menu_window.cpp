@@ -1,15 +1,19 @@
 #include<ncursesw/ncurses.h>
-#pragma once
+#include "drawable.cpp"
 
 class Menu
 {
 	bool first_time=true;
+	bool playing=true;
 	int height,width,starty,startx;
 	WINDOW *win;
 	public:
 	void start()
 	{
 		initscr();
+		curs_set(0);
+		keypad(stdscr, TRUE);
+		timeout(1000000000);
 		noecho();
 		height = 20;
 		width = 41;
@@ -19,13 +23,17 @@ class Menu
 		box(win,0,0);
 		wrefresh(win);
 		draw_title();
-		getch();
+		select();
 		clear();
 		endwin();
 	}
-	void main_loop()
+	bool is_quiting()
 	{
-		
+		if(!playing)
+		{
+			return true;
+		}
+		return false;
 	}	
 	void draw_title()
 	{
@@ -41,11 +49,113 @@ class Menu
 		
 	}
 	void get_middle(WINDOW *win, int &y, int &x,int h, int w)
+	{
+		getmaxyx(win,y,x);
+		y/=2;
+		x/=2;
+		x-=(w/2);
+		y-=(h/2);
+	}
+	void select()
+	{
+		Drawable arrow;
+		arrow.setsprite("<");
+		int i=0;
+		bool up=true;
+		if(first_time)
 		{
-			getmaxyx(win,y,x);
-			y/=2;
-			x/=2;
-			x-=(w/2);
-			y-=(h/2);
+			arrow.setpos(12,23);
+			mvwprintw(win,12,18,"PLAY");
+			mvwprintw(win,15,18,"QUIT");
+			wrefresh(win);
+			bool a=true;
+			while(a)
+			{
+				arrow.prin(win);
+				i=getch();
+				switch(i)
+				{
+					case 'w':
+					case KEY_UP:
+						{
+							if(!up)
+							{
+								up=true;
+								arrow.move_up(win,3);
+							}
+							break;
+						}
+					case 's':
+					case KEY_DOWN:
+						{
+							if(up)
+							{
+								up=false;
+								arrow.move_down(win,3);
+							}
+							break;
+						}
+					case 'e':
+					case ' ':
+						{
+							a=false;
+							break;
+						}
+				}
+			}
+			if(!up)
+			{
+				playing=false;	
+			}
 		}
+		else
+		{
+			arrow.setpos(12,26);
+			mvwprintw(win,12,15,"PLAY AGAIN");
+			mvwprintw(win,15,18,"QUIT");
+			wrefresh(win);
+			bool a=true;
+			while(a)
+			{
+				arrow.prin(win);
+				i=getch();
+				switch(i)
+				{
+					case 'w':
+					case KEY_UP:
+						{
+							if(!up)
+							{
+								up=true;
+								arrow.move_right(win,3);
+								arrow.move_up(win,3);	
+							}
+							break;
+						}
+					case 's':
+					case KEY_DOWN:
+						{
+							if(up)
+							{
+								up=false;
+								arrow.move_down(win,3);
+								arrow.move_left(win,3);
+							}
+							break;
+						}
+					case 'e':
+					case ' ':
+						{
+							a=false;
+							break;
+						}
+				}
+			}
+			if(!up)
+			{
+				playing=false;	
+			}
+		}	
+		first_time=false;
+	}
 };

@@ -1,18 +1,20 @@
-#pragma once
-	#include<ncursesw/ncurses.h>
-	#include "Player.cpp"
+#include<ncursesw/ncurses.h>
+#include "Player.cpp"
 class Game
 {
 	Player player;
 	int height,width,starty,startx;
 	int score=0;
+	int highscore=0;
 	WINDOW *win;
 	public:
 		void start()
 		{
 			initscr();
+			keypad(stdscr, TRUE);
 			noecho();
-			
+			curs_set(0);
+			timeout(32);
 			height = 15;
 			width = 70;
 			get_middle(stdscr,starty,startx,height,width);
@@ -23,12 +25,10 @@ class Game
 			draw_ground();
 			player.prin(win);
 			int i;
-			timeout(32);
-			curs_set(0); 
 			while(i!='q')
 			{
 			i=getch();
-			if(i=='w')
+			if(i=='w' or i==' ' or i==KEY_UP)
 			{
 				player.jump_activate();
 			}
@@ -36,7 +36,7 @@ class Game
 			print_score();
 			score++;
 			}
-		
+			high_score();
 			clear();
 			endwin();
 		}
@@ -57,9 +57,17 @@ class Game
 			x-=(w/2);
 			y-=(h/2);
 		}
+		void high_score()
+		{
+			if(highscore<score/2)
+			{
+				highscore=score/2;
+			}
+			score=0;
+		}
 		void print_score()
 		{
-			mvwprintw(win,1,55,"Score: %i",(score/2));
+			mvwprintw(win,1,39,"Highscore: %i  Score: %i",highscore,(score/2));
 			wrefresh(win);
 		}
 	
