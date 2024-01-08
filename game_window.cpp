@@ -4,9 +4,10 @@
 class Game
 {
 	Player player;
-	Cactus cactus;
+	Cactus cactus[2];
 	int height,width,starty,startx;
 	int speed;
+	int space=100;
 	WINDOW *win;
 	public:
 		int score=0;
@@ -15,27 +16,53 @@ class Game
 		{
 			score=0;
 			speed=1;
+			space=100;
+			int next_space=0;
 			window_setup();
 			int i=0;
 			bool lost=false;
 			while(!lost)
 			{
-				mvwprintw(win,1,1,"speed : %i",speed);
-				wrefresh(win);
+				printspeed();
 				i=getch();
 				if(i=='w' or i==' ' or i==KEY_UP)
 				{
 					player.jump_activate();
 				}
 				player.jump(win);
-				cactus.cmove(win,speed);
-				collision(lost);
+				if(cactus[0].posx-1==1)
+				{
+					cactus[1].rand_space(next_space);
+				}
+				if(!cactus[1].active)
+				{
+					if(cactus[0].posx<=40)
+					{
+						space=next_space;
+						cactus[1].active=true;
+					}
+				}
+				cactus[0].cmove(win,speed);
+				if(space<=0 and cactus[1].active)
+				{
+					cactus[1].cmove(win,speed,true);
+				}
+				else
+				{
+					space--;
+				}
+				for(auto i:cactus)
+				{
+					collision(lost,i);
+				}
 				print_score();
 				score++;
 				speedup();
 			}
 			high_score();
 			clear();
+			cactus[0].rand_sprite();
+			cactus[1].rand_sprite(highscore);
 			delwin(win);
 			endwin();
 		}
@@ -82,14 +109,20 @@ class Game
 			refresh();
 			box(win,0,0);
 			wrefresh(win);
-			cactus.clean(win);
+			cactus[0].active=true;
+			cactus[1].active=false;
+			for(auto i:cactus)
+			{
+				i.clean(win);
+			}
 			player.clean(win);
-			cactus.rand_sprite();
+			cactus[0].rand_sprite();
+			cactus[1].rand_sprite(highscore);
 			draw_ground();
 			player.prin(win);
-			cactus.prin(win);
+			cactus[0].prin(win);
 		}
-		void collision(bool &lost)
+		void collision(bool &lost,Cactus &cactus)
 		{
 			if(player.posx==cactus.posx and player.posy>=9-cactus.height)
 				{
@@ -98,14 +131,24 @@ class Game
 		}
 		void speedup()
 		{
-			if(speed==1 and (score>=400 and (cactus.posx-player.posx)%2==0))
+			if(speed==1 and (score>=400 and (cactus[0].posx-player.posx)%2==0))
 				{
 					speed=2;
 				}
-				if(speed==2 and (score>=1250 and (cactus.posx-player.posx)%3==0))
+				if(speed==2 and (score>=1250 and (cactus[0].posx-player.posx)%3==0))
 				{
 					speed=3;
 				}
+				if(speed==3 and (score>=4000 and (cactus[0].posx-player.posx)%4==0))
+				{
+					speed=4;
+				}
+		}
+		void printspeed()
+		{
+			mvwprintw(win,1,1,"                    ");
+			mvwprintw(win,1,1,"speed : %i",space);
+			wrefresh(win);
 		}
 	
 };

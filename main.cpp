@@ -4,6 +4,7 @@
 #include"menu_window.cpp"
 int main()
 {
+
 	Menu menu;
 	Game game;
 	while(true)
