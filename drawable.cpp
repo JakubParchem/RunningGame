@@ -96,4 +96,15 @@ class Drawable
 			}
 			prin(win);
 		}
+		void setheight(int h=0)
+		{
+			if(h)
+			{
+				height =h;
+			}
+			else if(sprite.size()>0)
+			{
+				height=sprite.size();
+			}
+		}
 };

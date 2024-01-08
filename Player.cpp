@@ -11,6 +11,7 @@ class Player:public Drawable
 		{
 			setsprite("PFM");
 			setpos(9,6);
+			setheight();
 		}
 		void jump_activate()
 		{

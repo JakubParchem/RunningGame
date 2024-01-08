@@ -8,8 +8,9 @@ class Cactus: public Drawable
 		{
 			setpos(10,66);
 			setsprite("##");
+			setheight();
 		}
-		cmove(WINDOW *win,int speed=1)
+		void cmove(WINDOW *win,int speed=1)
 		{
 			if(posx==1)
 			{

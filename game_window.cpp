@@ -26,10 +26,7 @@ class Game
 				}
 				player.jump(win);
 				cactus.cmove(win);
-				if(player.posx==cactus.posx and player.posy>=7)
-				{
-					lost=true;
-				}
+				collision(lost);
 				print_score();
 				score++;
 			}
@@ -84,6 +81,13 @@ class Game
 			draw_ground();
 			player.prin(win);
 			cactus.prin(win);
+		}
+		void collision(bool &lost)
+		{
+			if(player.posx==cactus.posx and player.posy>=7)
+				{
+					lost=true;
+				}
 		}
 	
 };
