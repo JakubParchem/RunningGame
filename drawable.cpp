@@ -4,9 +4,9 @@
 class Drawable
 {
 	protected:
-		int height;
 		std::string sprite;
 	public:
+		int height;
 		int posx=0;
 		int posy=0;
 		void setpos(int y,int x)

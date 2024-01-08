@@ -20,6 +20,8 @@ class Game
 			bool lost=false;
 			while(!lost)
 			{
+				mvwprintw(win,1,1,"speed : %i",speed);
+				wrefresh(win);
 				i=getch();
 				if(i=='w' or i==' ' or i==KEY_UP)
 				{
@@ -30,10 +32,7 @@ class Game
 				collision(lost);
 				print_score();
 				score++;
-				if(score==400)
-				{
-						speed=2;
-				}
+				speedup();
 			}
 			high_score();
 			clear();
@@ -92,9 +91,20 @@ class Game
 		}
 		void collision(bool &lost)
 		{
-			if(player.posx==cactus.posx and player.posy>=7)
+			if(player.posx==cactus.posx and player.posy>=9-cactus.height)
 				{
 					lost=true;
+				}
+		}
+		void speedup()
+		{
+			if(speed==1 and (score>=400 and (cactus.posx-player.posx)%2==0))
+				{
+					speed=2;
+				}
+				if(speed==2 and (score>=1250 and (cactus.posx-player.posx)%3==0))
+				{
+					speed=3;
 				}
 		}
 	

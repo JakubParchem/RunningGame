@@ -35,6 +35,6 @@ class Cactus: public Drawable
 				setsprite("###");
 			}
 			setheight();
-			setpos(12-height,64);
+			setpos(12-height,66);
 		}
 };
