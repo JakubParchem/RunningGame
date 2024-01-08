@@ -6,6 +6,7 @@ class Game
 	Player player;
 	Cactus cactus;
 	int height,width,starty,startx;
+	int speed;
 	WINDOW *win;
 	public:
 		int score=0;
@@ -13,7 +14,7 @@ class Game
 		void start()
 		{
 			score=0;
-			cactus.setpos(10,66);
+			speed=1;
 			window_setup();
 			int i=0;
 			bool lost=false;
@@ -25,10 +26,14 @@ class Game
 					player.jump_activate();
 				}
 				player.jump(win);
-				cactus.cmove(win);
+				cactus.cmove(win,speed);
 				collision(lost);
 				print_score();
 				score++;
+				if(score==400)
+				{
+						speed=2;
+				}
 			}
 			high_score();
 			clear();
@@ -78,6 +83,9 @@ class Game
 			refresh();
 			box(win,0,0);
 			wrefresh(win);
+			cactus.clean(win);
+			player.clean(win);
+			cactus.rand_sprite();
 			draw_ground();
 			player.prin(win);
 			cactus.prin(win);
