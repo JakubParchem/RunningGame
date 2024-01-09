@@ -7,16 +7,20 @@ class Game
 	Cactus cactus[2];
 	int height,width,starty,startx;
 	int speed;
-	int space=100;
+	int space=24;
+	int delay=0;
+	bool delay_active=false;
 	WINDOW *win;
 	public:
 		int score=0;
 		int highscore=0;
 		void start()
 		{
+			cactus[0].active=true;
 			score=0;
 			speed=1;
-			space=100;
+			space=24;
+			delay=0;
 			int next_space=0;
 			window_setup();
 			int i=0;
@@ -24,28 +28,12 @@ class Game
 			while(!lost)
 			{
 				printspeed();
-				jumping(win,i);
-				if(cactus[0].posx-1==1)
+				jumping(i);
+				if(i=='q')
 				{
-					cactus[1].rand_space(next_space);
+					break;
 				}
-				if(!cactus[1].active)
-				{
-					if(cactus[0].posx<=40)
-					{
-						space=next_space;
-						cactus[1].active=true;
-					}
-				}
-				cactus[0].cmove(win,speed);
-				if(space<=0 and cactus[1].active)
-				{
-					cactus[1].cmove(win,speed,true);
-				}
-				else
-				{
-					space--;
-				}
+				cacti_moving(speed,space,next_space);
 				for(auto i:cactus)
 				{
 					collision(lost,i);
@@ -54,12 +42,7 @@ class Game
 				score++;
 				speedup();
 			}
-			high_score();
-			clear();
-			cactus[0].rand_sprite();
-			cactus[1].rand_sprite(highscore);
-			delwin(win);
-			endwin();
+			game_end();
 		}
 		void draw_ground()
 		{
@@ -128,24 +111,34 @@ class Game
 		{
 			if(speed==1 and (score>=400 and (cactus[0].posx-player.posx)%2==0))
 				{
-					speed=2;
+					set_delay();
+					if(delay==0)
+					{
+						speed=2;
+						delay_active=false;
+					}
 				}
 				if(speed==2 and (score>=1250 and (cactus[0].posx-player.posx)%3==0))
 				{
-					speed=3;
-				}
-				if(speed==3 and (score>=4000 and (cactus[0].posx-player.posx)%4==0))
+					set_delay();
+					if(delay==0)
+					{
+						speed=3;
+						delay_active=false;
+					}
+				};
+				if(delay_active)
 				{
-					speed=4;
-				}
+					delay--;
+				}			
 		}
 		void printspeed()
 		{
 			mvwprintw(win,1,1,"                    ");
-			mvwprintw(win,1,1,"speed : %i",space);
+			mvwprintw(win,1,1,"speed : %i",delay);
 			wrefresh(win);
 		}
-		void jumping(WINDOW *win, int &i)
+		void jumping(int &i)
 		{
 			i=getch();
 			if(i=='w' or i==' ' or i==KEY_UP)
@@ -153,6 +146,42 @@ class Game
 				player.jump_activate();
 			}			
 			player.jump(win);
+		}
+		void game_end()
+		{
+			high_score();
+			clear();
+			cactus[0].rand_sprite();
+			cactus[1].rand_sprite(highscore);
+			delwin(win);
+			endwin();
+		}
+		void cacti_moving(int &speed, int &space, int &next_space)
+		{
+				if(!cactus[1].active and cactus[0].posx<=66-space)
+				{
+						cactus[1].rand_space(space);
+						cactus[1].active=true;
+				}
+				if(!cactus[0].active and delay==0)
+				{
+					cactus[0].active=true;
+				}
+				for(auto i:cactus)
+				{
+					if(i.active)
+					{
+						i.cmove(win,speed,true);
+					}	
+				}				
+		}
+		void set_delay()
+		{
+			if(!delay_active)
+			{
+				delay=66;
+				delay_active=true;
+			}
 		}
 	
 };

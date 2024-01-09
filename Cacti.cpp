@@ -47,7 +47,8 @@ class Cactus: public Drawable
 		}
 		void rand_space(int &space)
 		{
-			if(rand()%10<=5)
+			int r=rand()%10;
+			if(r<=4)
 			{
 				space=24;
 			}

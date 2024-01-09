@@ -94,6 +94,11 @@ class Menu
 							a=false;
 							break;
 						}
+					case 'q':
+						{
+							playing=false;
+							break;
+						}
 				}
 			}
 			if(!up)
