@@ -143,13 +143,14 @@ class Menu
 						}
 					case 'e':
 					case ' ':
+					case 'q':
 						{
 							a=false;
 							break;
 						}
 				}
 			}
-			if(!up)
+			if(!up or i=='q')
 			{
 				playing=false;	
 			}
