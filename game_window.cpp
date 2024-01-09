@@ -21,6 +21,7 @@ class Game
 			speed=1;
 			space=24;
 			delay=0;
+			delay_active=false;
 			int next_space=0;
 			window_setup();
 			int i=0;
@@ -28,6 +29,11 @@ class Game
 			while(!lost)
 			{
 				printspeed();
+				speedup();
+				if(delay_active)
+				{
+					delay--;
+				}
 				jumping(i);
 				if(i=='q')
 				{
@@ -39,8 +45,7 @@ class Game
 					collision(lost,i);
 				}
 				print_score();
-				score++;
-				speedup();
+				score++;	
 			}
 			game_end();
 		}
@@ -110,27 +115,18 @@ class Game
 		void speedup()
 		{
 			if(speed==1 and (score>=400 and (cactus[0].posx-player.posx)%2==0))
-				{
-					set_delay();
-					if(delay==0)
-					{
-						speed=2;
-						delay_active=false;
-					}
-				}
-				if(speed==2 and (score>=1250 and (cactus[0].posx-player.posx)%3==0))
-				{
-					set_delay();
-					if(delay==0)
-					{
-						speed=3;
-						delay_active=false;
-					}
-				};
-				if(delay_active)
-				{
-					delay--;
-				}			
+			{
+				set_delay();
+			}
+			else if(speed==2 and (score>=1250 and (cactus[0].posx-player.posx)%3==0))
+			{
+				set_delay();
+			};	
+			if(delay==0 and delay_active)
+			{
+				speed++;
+				delay_active=false;
+			}			
 		}
 		void printspeed()
 		{
@@ -158,22 +154,20 @@ class Game
 		}
 		void cacti_moving(int &speed, int &space, int &next_space)
 		{
-				if(!cactus[1].active and cactus[0].posx<=66-space)
+				if(!cactus[1].active and cactus[0].posx<=66-space and !delay_active)
 				{
 						cactus[1].rand_space(space);
 						cactus[1].active=true;
 				}
-				if(!cactus[0].active and delay==0)
+				if(!delay_active)
 				{
 					cactus[0].active=true;
 				}
-				for(auto i:cactus)
+				cactus[0].cmove(win,speed,true);
+				if(cactus[1].active)
 				{
-					if(i.active)
-					{
-						i.cmove(win,speed,true);
-					}	
-				}				
+					cactus[1].cmove(win,speed,true);
+				}
 		}
 		void set_delay()
 		{
