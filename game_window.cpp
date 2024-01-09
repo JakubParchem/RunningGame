@@ -24,12 +24,7 @@ class Game
 			while(!lost)
 			{
 				printspeed();
-				i=getch();
-				if(i=='w' or i==' ' or i==KEY_UP)
-				{
-					player.jump_activate();
-				}
-				player.jump(win);
+				jumping(win,i);
 				if(cactus[0].posx-1==1)
 				{
 					cactus[1].rand_space(next_space);
@@ -149,6 +144,15 @@ class Game
 			mvwprintw(win,1,1,"                    ");
 			mvwprintw(win,1,1,"speed : %i",space);
 			wrefresh(win);
+		}
+		void jumping(WINDOW *win, int &i)
+		{
+			i=getch();
+			if(i=='w' or i==' ' or i==KEY_UP)
+			{
+				player.jump_activate();
+			}			
+			player.jump(win);
 		}
 	
 };
