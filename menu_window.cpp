@@ -1,4 +1,3 @@
-#include<ncursesw/ncurses.h>
 #include "drawable.cpp"
 
 class Menu

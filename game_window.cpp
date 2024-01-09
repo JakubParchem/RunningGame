@@ -1,4 +1,3 @@
-#include<ncursesw/ncurses.h>
 #include "Player.cpp"
 #include "Cacti.cpp"
 class Game
@@ -189,11 +188,22 @@ class Game
 		void game_end()
 		{
 			high_score();
-			clear();
+			wclear(win);
+			print_GameOver();
 			cactus[0].rand_sprite();
 			cactus[1].rand_sprite(highscore);
 			delwin(win);
 			endwin();
+		}
+		void print_GameOver()
+		{
+			mvwprintw(win,6,30,"Game Over!");
+			mvwprintw(win,7,21,"press any button to continue");
+			wrefresh(win);
+			timeout(10000);
+			getch();
+			timeout(28);
+			clear();
 		}
 	
 };

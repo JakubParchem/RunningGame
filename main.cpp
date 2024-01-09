@@ -1,12 +1,10 @@
-#include<ncursesw/ncurses.h>
 #include<iostream>
 #include"game_window.cpp"
 #include"menu_window.cpp"
 int main()
 {
-
 	Menu menu;
-	Game game;//
+	Game game;
 	while(true)
 	{
 		menu.start(game.highscore,game.score);
@@ -15,6 +13,5 @@ int main()
 			return 0;
 		}
 		game.start();
-	}
-	
+	}	
 }
