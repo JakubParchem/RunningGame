@@ -4,7 +4,7 @@
 int main()
 {
 	Menu menu;
-	Game game;//
+	Game game;
 	while(true)
 	{
 		menu.start(game.highscore,game.score);

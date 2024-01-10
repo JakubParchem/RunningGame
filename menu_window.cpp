@@ -4,6 +4,9 @@ class Menu
 {
 	bool first_time=true;
 	bool playing=true;
+	bool up;
+	bool a;
+	Drawable arrow;
 	int height,width,starty,startx;
 	WINDOW *win;
 	public:
@@ -50,56 +53,18 @@ class Menu
 	}
 	void select()
 	{
-		Drawable arrow;
 		arrow.setsprite("<");
 		int i=0;
-		bool up=true;
+		up=true;
 		if(first_time)
 		{
 			arrow.setpos(12,23);
 			mvwprintw(win,12,18,"PLAY");
 			mvwprintw(win,15,18,"QUIT");
 			wrefresh(win);
-			bool a=true;
-			while(a)
-			{
-				arrow.prin(win);
-				i=getch();
-				switch(i)
-				{
-					case 'w':
-					case KEY_UP:
-						{
-							if(!up)
-							{
-								up=true;
-								arrow.move_up(win,3);
-							}
-							break;
-						}
-					case 's':
-					case KEY_DOWN:
-						{
-							if(up)
-							{
-								up=false;
-								arrow.move_down(win,3);
-							}
-							break;
-						}
-					case 'e':
-					case ' ':
-						{
-							a=false;
-							break;
-						}
-					case 'q':
-						{
-							playing=false;
-							break;
-						}
-				}
-			}
+			a=true;
+			key_input(a);
+			
 			if(!up)
 			{
 				playing=false;	
@@ -111,44 +76,9 @@ class Menu
 			mvwprintw(win,14,15,"PLAY AGAIN");
 			mvwprintw(win,17,18,"QUIT");
 			wrefresh(win);
-			bool a=true;
-			while(a)
-			{
-				arrow.prin(win);
-				i=getch();
-				switch(i)
-				{
-					case 'w':
-					case KEY_UP:
-						{
-							if(!up)
-							{
-								up=true;
-								arrow.move_right(win,3);
-								arrow.move_up(win,3);	
-							}
-							break;
-						}
-					case 's':
-					case KEY_DOWN:
-						{
-							if(up)
-							{
-								up=false;
-								arrow.move_down(win,3);
-								arrow.move_left(win,3);
-							}
-							break;
-						}
-					case 'e':
-					case ' ':
-					case 'q':
-						{
-							a=false;
-							break;
-						}
-				}
-			}
+			a=true;
+			key_input(a, 3);
+			
 			if(!up or i=='q')
 			{
 				playing=false;	
@@ -163,18 +93,67 @@ class Menu
 	}
 	void window_setup()
 	{
+		set_variables_values();
+		window_initialisation();
+		draw_title();
+	}
+	void window_initialisation()
+	{
 		initscr();
 		curs_set(0);
 		keypad(stdscr, TRUE);
 		timeout(1000000000);
 		noecho();
-		height = 20;
-		width = 41;
 		get_middle(stdscr,starty,startx,height,width);
 		win =newwin(height,width,starty,startx);
 		refresh();
 		box(win,0,0);
 		wrefresh(win);
-		draw_title();
+	}
+	void set_variables_values()
+	{
+		height = 20;
+		width = 41;
+	}
+	void key_input(bool &a, int x=0)
+	{
+		int i=0;
+		while(a)
+			{
+				arrow.prin(win);
+				i=getch();
+				switch(i)
+				{
+					case 'w':
+					case KEY_UP:
+						{
+							if(!up)
+							{
+								up=true;
+								arrow.move_right(win,x);
+								arrow.move_up(win,3);	
+							}
+							break;
+						}
+					case 's':
+					case KEY_DOWN:
+						{
+							if(up)
+							{
+								up=false;
+								arrow.move_down(win,3);
+								arrow.move_left(win,x);
+							}
+							break;
+						}
+					case 'e':
+					case ' ':
+					case 'q':
+						{
+							a=false;
+							break;
+						}
+				}
+			}
 	}
 };
