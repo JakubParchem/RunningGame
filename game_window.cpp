@@ -23,20 +23,14 @@ class Game
 				//printvar();
 				print_score();
 				speedup();
-				if(delay_active)
-				{
-					delay--;
-				}
 				jumping(i);
+				//return to menu when q is pressed
 				if(i=='q')
 				{
 					break;
 				}
 				cacti_moving(speed,space);
-				for(auto i:cactus)
-				{
-					cactus_collision(lost,i);
-				}
+				cactus_collision(lost);
 				score++;	
 			}
 			game_end();
@@ -50,7 +44,7 @@ class Game
 			}
 			wrefresh(win);
 		}
-		void get_middle(WINDOW *win, int &y, int &x,int h, int w)
+		void get_middle(WINDOW *win,int &y, int &x,int h, int w)
 		{
 			getmaxyx(win,y,x);
 			y/=2;
@@ -76,12 +70,15 @@ class Game
 			window_initialisation();
 			objects_setup();	
 		}
-		void cactus_collision(bool &lost,Cactus &cactus)
+		void cactus_collision(bool &lost)
 		{
-			if(player.posx==cactus.posx and player.posy>=9-cactus.height)
+			for(auto cactusi:cactus)
+			{
+				if(player.posx==cactusi.posx and player.posy>=9-cactusi.height)
 				{
 					lost=true;
 				}
+			}
 		}
 		void speedup()
 		{
@@ -92,12 +89,18 @@ class Game
 			else if(speed==2 and (score>=1250 and (cactus[0].posx-player.posx)%3==0))
 			{
 				set_delay();
-			};	
+			};
+				
 			if(delay==0 and delay_active)
 			{
 				speed++;
 				delay_active=false;
-			}			
+			};
+				
+			if(delay_active)
+				{
+					delay--;
+				}		
 		}
 		void jumping(int &i)
 		{
@@ -107,6 +110,7 @@ class Game
 				player.jump_activate();
 			}			
 			player.jump(win);
+			
 		}
 		void cacti_moving(int &speed, int &space)
 		{

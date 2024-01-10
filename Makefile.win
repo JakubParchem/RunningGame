@@ -1,0 +1,43 @@
+# Project: Trex
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
+LINKOBJ  = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
+LIBS     = -L"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib" -L"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc -lncursesw -L"C:/Users/Kuba/Documents/GitHub/RunningGame/ncurses/lib" -lncursesw
+INCS     = -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Users/Kuba/Documents/GitHub/RunningGame/ncurses/include"
+CXXINCS  = -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Users/kuba/Desktop/Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++" -I"C:/Users/Kuba/Documents/GitHub/RunningGame/ncurses/include"
+BIN      = Trex.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+DEL      = C:\Users\kuba\Desktop\Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable\devcpp.exe INTERNAL_DEL
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Player.o: Player.cpp
+	$(CPP) -c Player.cpp -o Player.o $(CXXFLAGS)
+
+drawable.o: drawable.cpp
+	$(CPP) -c drawable.cpp -o drawable.o $(CXXFLAGS)
+
+game_window.o: game_window.cpp
+	$(CPP) -c game_window.cpp -o game_window.o $(CXXFLAGS)
+
+menu_window.o: menu_window.cpp
+	$(CPP) -c menu_window.cpp -o menu_window.o $(CXXFLAGS)
+
+Cacti.o: Cacti.cpp
+	$(CPP) -c Cacti.cpp -o Cacti.o $(CXXFLAGS)
