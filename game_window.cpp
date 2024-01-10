@@ -21,6 +21,7 @@ class Game
 			while(!lost)
 			{
 				//printvar();
+				print_score();
 				speedup();
 				if(delay_active)
 				{
@@ -36,7 +37,6 @@ class Game
 				{
 					cactus_collision(lost,i);
 				}
-				print_score();
 				score++;	
 			}
 			game_end();
