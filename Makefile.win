@@ -1,25 +1,25 @@
 # Project: Trex
-# Makefile created by Embarcadero Dev-C++ 6.3
+# Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
 LINKOBJ  = main.o Player.o drawable.o game_window.o menu_window.o Cacti.o
-LIBS     = -L"TDM-GCC-64/lib" -L"TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
-INCS     = -I"TDM-GCC-64/include" -I"TDM-GCC-64/x86_64-w64-mingw32/include" -I"TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
-CXXINCS  = -I"TDM-GCC-64/include" -I"TDM-GCC-64/x86_64-w64-mingw32/include" -I"TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -L"C:/Users/Kuba/Documents/GitHub/RunningGame/mingw64/lib" -lncursesw
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Users/Kuba/Documents/GitHub/RunningGame/mingw64/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/Kuba/Documents/GitHub/RunningGame/mingw64/include"
 BIN      = Trex.exe
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
-//DEL      = C:\Users\Kuba\Desktop\Embarcadero_Dev-Cpp_6.3_TDM-GCC_9.2_ncursesw_64_Portable\devcpp.exe INTERNAL_DEL
+RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
 
 all: all-before $(BIN) all-after
 
 clean: clean-custom
-	${DEL} $(OBJ) $(BIN)
+	${RM} $(OBJ) $(BIN)
 
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
