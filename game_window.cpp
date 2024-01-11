@@ -1,9 +1,11 @@
 #include "Player.cpp"
 #include "Cacti.cpp"
+#include "Rock.cpp"
 class Game
 {
 	Player player;
 	Cactus cactus[2];
+	Rocks rocks;
 	int height,width,starty,startx;
 	int speed;
 	int space;
@@ -31,6 +33,7 @@ class Game
 				}
 				cacti_moving(speed,space);
 				cactus_collision(lost);
+				rocks.rsmove(win,speed);
 				score++;	
 			}
 			game_end();
@@ -176,8 +179,10 @@ class Game
 				i.clean(win);
 			}
 			player.clean(win);
+			rocks.rclean(win);
 			cactus[0].rand_sprite();
 			cactus[1].rand_sprite(highscore);
+			rocks.rsinitialpos();
 			player.prin(win);
 			cactus[0].prin(win);
 		}
