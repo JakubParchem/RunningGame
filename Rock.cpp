@@ -42,23 +42,26 @@ class Rocks
 		}
 		void rsmove(WINDOW *win,int speed)
 		{
-			for(auto i:rocktab)
-			{
-				i.rmove(win,speed);
-			}
+			rocktab[0].rmove(win,speed);
+			rocktab[1].rmove(win,speed);
+			rocktab[2].rmove(win,speed);
+			rocktab[3].rmove(win,speed);
+			rocktab[4].rmove(win,speed);
 		}
 		void rsinitialpos()
 		{
-			for(auto i:rocktab)
-			{
-				i.initialpos();
-			}
+			rocktab[0].initialpos();
+			rocktab[1].initialpos();
+			rocktab[2].initialpos();
+			rocktab[3].initialpos();
+			rocktab[4].initialpos();
 		}
 		void rclean(WINDOW *win)
 		{
-			for(auto i:rocktab)
-			{
-				i.clean(win);
-			}
+			rocktab[0].clean(win);
+			rocktab[1].clean(win);
+			rocktab[2].clean(win);
+			rocktab[3].clean(win);
+			rocktab[4].clean(win);
 		}
 };
