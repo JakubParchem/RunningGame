@@ -1,6 +1,6 @@
 # RunningGame
 
-This game is inspired by the offline google T-rex run game. It is a console game written in c++ using 
+This game is inspired by the offline google T-rex run game. It is a cmd game written in c++ using 
 the ncurses library.
 
 To play the game run trex.exe.
